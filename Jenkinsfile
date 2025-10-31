@@ -19,6 +19,7 @@ pipeline {
 
         stage('Build Quarkus (Gradle)') {
             steps {
+                chmod +x gradlew
                 sh './gradlew clean build -x test'
             }
         }
