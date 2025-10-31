@@ -27,14 +27,15 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    sh """
-                        docker build -t $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} .
-                    """
-                }
-            }
+    steps {
+        script {
+            sh """
+                docker build -f src/main/docker/Dockerfile.jvm -t $REGISTRY/$IMAGE_NAME:${BUILD_NUMBER} .
+            """
         }
+    }
+}
+
 
         stage('Push to Docker Hub') {
             steps {
