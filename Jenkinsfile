@@ -65,4 +65,4 @@ pipeline {
             echo "Pipeline gagal. Cek logs Jenkins."
         }
     }
-}
+
