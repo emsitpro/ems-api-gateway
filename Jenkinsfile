@@ -8,12 +8,13 @@ pipeline {
         KUBECONFIG_FILE = credentials('kubeconfig-jenkins')  // kubeconfig cluster kamu
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/emsitpro/ems-api-gateway.git'
-            }
-        }
+   stage('Checkout') {
+    steps {
+        git branch: 'main',
+            credentialsId: 'github-ssh-key',
+            url: 'git@github.com:emsitpro/ems-api-gateway.git'
+    }
+}
 
         stage('Build Quarkus (Gradle)') {
             steps {
@@ -58,10 +59,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment sukses ke Kubernetes (namespace: default)"
+            echo "Deployment sukses ke Kubernetes (namespace: default)"
         }
         failure {
-            echo "❌ Pipeline gagal. Cek logs Jenkins."
+            echo "Pipeline gagal. Cek logs Jenkins."
         }
     }
 }
