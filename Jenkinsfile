@@ -4,17 +4,18 @@ pipeline {
     environment {
         REGISTRY = "docker.io/emsitpro"
         IMAGE_NAME = "ems-api-gateway"
-        DOCKER_CREDS = credentials('docker-hub-credentials') // buat di Jenkins Credentials
-        KUBECONFIG_FILE = credentials('kubeconfig-jenkins')  // kubeconfig cluster kamu
+        DOCKER_CREDS = credentials('docker-hub-credentials') // credentials Docker Hub di Jenkins
+        KUBECONFIG_FILE = credentials('kubeconfig-jenkins')  // credentials kubeconfig
     }
 
-   stage('Checkout') {
-    steps {
-        git branch: 'main',
-            credentialsId: 'github-ssh-key',
-            url: 'git@github.com:emsitpro/ems-api-gateway.git'
-    }
-}
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github-ssh-key',
+                    url: 'git@github.com:emsitpro/ems-api-gateway.git'
+            }
+        }
 
         stage('Build Quarkus (Gradle)') {
             steps {
@@ -65,4 +66,4 @@ pipeline {
             echo "Pipeline gagal. Cek logs Jenkins."
         }
     }
-
+}
