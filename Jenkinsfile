@@ -35,7 +35,7 @@ pipeline {
                         echo "==> List files:"
                         ls -la
                         echo "==> List docker directory:"
-                        ls -la src/main/docker || echo "docker folder not found!"
+                        ls -la src/main/docker || echo "docker folder not found"
                     '''
                     sh """
                         docker build -f src/main/docker/Dockerfile.jvm \
@@ -73,7 +73,7 @@ pipeline {
 
     post {
         success {
-            echo "Deployment sukses ke Kubernetes (namespace: default)"
+            echo "Deployment ke kubernetes sukses (namespace: default)"
         }
         failure {
             echo "Pipeline gagal. Cek logs Jenkins."
